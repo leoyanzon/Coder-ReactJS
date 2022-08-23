@@ -1,7 +1,7 @@
 
-export const ItemListContainer = () => {
+export const ItemListContainer = ({mensaje}) => {
     return (
-        <h1>Hola Mundo (Este es el item list container)</h1>
+        <h1>{mensaje}</h1>
 
     )
 }
