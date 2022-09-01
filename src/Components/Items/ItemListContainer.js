@@ -1,7 +1,7 @@
 import {ItemCount} from './ItemCount'
 import {ItemList} from './ItemList'
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { ItemDetailContainer } from './ItemDetailContainer';
 
 // DATA
 
@@ -26,17 +26,6 @@ const baseDeDatos = [
     }
 ];
 
-// STYLES
-
-const styles = {
-    itemListContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
-    }
-}
-
-
 //FUNCION ITEMLISTCONTAINER
 
 
@@ -55,7 +44,7 @@ export const ItemListContainer = () => {
 
 //Use efect se ejecuta UNA VEZ que fue renderizado el componente. Cuando termina de renderizarse
 
-    useEffect(()=>{
+    useEffect(()=>{ // Si tiene [] se ejecuta 1 sola vez solamente despues del primer renderizado.
         const funcionAsincronaObtener = async() => {
             try{
                 const listado = await obtenerDatosApi();
@@ -69,11 +58,25 @@ export const ItemListContainer = () => {
     },[])
 
     return (
-        <div style = {styles.itemListContainer}>
+        <>
+        <div className = "itemListContainer">
             <h1>Explorar Modelos</h1>
             {/* <ItemCount initial = {1} stock={6}></ItemCount> */}
             <ItemList items = {items}></ItemList>
+            <ItemDetailContainer prodId = {baseDeDatos[0]}></ItemDetailContainer>
+            {
+                items.length === 0 &&
+              <div className = "loader">
+                <span>L</span>
+                <span>O</span>
+                <span>A</span>
+                <span>D</span>
+                <span>I</span>
+                <span>N</span>
+                <span>G</span>
+              </div>  
+            }
         </div>
+        </>
     )
 }
-

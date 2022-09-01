@@ -59,8 +59,147 @@
   align-items: center;
 }
 
+.itemListContainer{
+  display: flex;
+  flex-direction: column;
+  align-Items: center;
+}
+
 .ItemImg{
   width: 200px;
   margin: 5px;
   border-radius: 4px;
 }
+
+/* From uiverse.io by @alexroumi */
+button {
+  margin: 5px;
+  padding: 10px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  z-index: 1;
+  background: #e8e8e8;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  transition: all 250ms;
+  overflow: hidden;
+ }
+ 
+ button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  transition: all 250ms
+ }
+ 
+ button:hover {
+  color: #e8e8e8;
+ }
+ 
+ button:hover::before {
+  width: 100%;
+ }
+
+
+.loader span {
+ font-size: 22px;
+ font-family: 'Courier New', Courier, monospace;
+ font-weight: 600;
+ animation: blur 3s linear infinite;
+ line-height: 20px;
+ transition: all 0.5s;
+ letter-spacing: 0.2em;
+}
+
+@keyframes blur {
+ 0%, 90% {
+  filter: blur(0);
+ }
+
+ 50% {
+  filter: blur(10px);
+ }
+}
+
+/* From uiverse.io by @alexruix */
+.card {
+  width: 190px;
+  height: 254px;
+  padding: .8em;
+  background: #f5f5f5;
+  position: relative;
+  overflow: visible;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+ }
+ 
+ .card-img {
+  background-color: #ffcaa6;
+  height: 40%;
+  width: 100%;
+  border-radius: .5rem;
+  transition: .3s ease;
+ }
+ 
+ .card-info {
+  padding-top: 10%;
+ }
+ 
+ svg {
+  width: 20px;
+  height: 20px;
+ }
+ 
+ .card-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+ }
+ 
+ /*Text*/
+ .text-title {
+  font-weight: 900;
+  font-size: 1.2em;
+  line-height: 1.5;
+ }
+ 
+ .text-body {
+  font-size: .9em;
+  padding-bottom: 10px;
+ }
+ 
+ /*Button*/
+ .card-button {
+  border: 1px solid #252525;
+  display: flex;
+  padding: .3em;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: .3s ease-in-out;
+ }
+ 
+ /*Hover*/
+ .card-img:hover {
+  transform: translateY(-25%);
+  box-shadow: rgba(226, 196, 63, 0.25) 0px 13px 47px -5px, rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
+ }
+ 
+ .card-button:hover {
+  border: 1px solid #ffcaa6;
+  background-color: #ffcaa6;
+ }
+ 
