@@ -1,14 +1,11 @@
-export const ItemDetail = ({id, title, price, pictureUrl}) => {
+export const ItemDetail = ({producto}) => {
+
     return(
-        <>
-            { id > 0 && 
-            <div>
-                <h1>Producto número {id}</h1>
-                <h2>{title}</h2>
-                <img src={pictureUrl} alt="" />
-                <p>Precio: {price}</p>
-            </div>
-            }
-        </>
+        <div>
+            <h1>Producto número {producto.id}</h1>
+            <h2>{producto.title}</h2>
+            <img src={producto.pictureUrl} alt='' />
+            <p>Precio: {producto.price}</p>
+            </div>                
     )
 }
