@@ -2,19 +2,31 @@ import React from "react";
 import logo from "../../Assets/3d-logo.png"
 import styled from 'styled-components';
 import CartWidget from "./CartWidget"
+import { NavLink } from "react-router-dom";
 
 const NavBar = () =>{
 
     return(
         <>
         <header style={styles.header}>
-
+        <NavLink to ="/">
             <img style = {styles.headerImg} src={logo} alt="" />
+        </NavLink>
+            
             <h1>3D Models</h1>
-            <div> 
-                <Button>Buscar</Button>
-                <Button>Descargas</Button>
-                <Button>Contacto</Button>
+            <div>
+                <NavLink to="/category/">
+                    <Button>Explorar</Button>
+                </NavLink>
+                <NavLink to="/category/art">
+                    <Button>Arte</Button>
+                </NavLink>
+                <NavLink to="/category/toys">
+                    <Button>Juguetes</Button>
+                </NavLink>
+                <NavLink to="/item/1">
+                    <Button>Detalles</Button>
+                </NavLink>
             </div> 
             <CartWidget/>
             </header> 
