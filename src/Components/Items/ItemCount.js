@@ -1,10 +1,16 @@
 import {useState} from 'react'
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button'
+import { NavLink } from 'react-router-dom';
 
-export const ItemCount = ({initial, stock}) => {
+export const ItemCount = ({initial, stock, id}) => {
 
     const [onAdd, setOnAdd] = useState(initial);  
+    const [productoAgregado, setProductoAgregado] = useState(0);
+
+    const agregarProducto = (id) => {
+        setProductoAgregado(id);
+    }
 
     return (
         <div style={styles.itemCount}>
@@ -12,14 +18,29 @@ export const ItemCount = ({initial, stock}) => {
             <p>{onAdd}</p>
 
             <ButtonGroup variant="outlined" aria-label="outlined button group" style = {styles.buttons}>
-                <Button onClick = {()=> onAdd > 0 ? setOnAdd(onAdd-1): false} >-</Button>
-                <Button onClick = {()=> setOnAdd(stock)} >Max</Button>
-                <Button onClick = {()=> onAdd < stock ? setOnAdd(onAdd+1): false} >+</Button>
+                <button className = "button1" onClick = {()=> onAdd > 0 ? setOnAdd(onAdd-1): false} >-</button>
+                <button className = "button1" onClick = {()=> setOnAdd(stock)} >Max</button>
+                <button className = "button1" onClick = {()=> onAdd < stock ? setOnAdd(onAdd+1): false} >+</button>
             </ButtonGroup>
 
-            <ButtonGroup variant="contained" aria-label="outlined primary button group" >
-                <Button>Seleccionar</Button>
-            </ButtonGroup>
+            {   productoAgregado == 0 && 
+                <ButtonGroup variant="outlined" aria-label="outlined primary button group" >
+                    <button className = "button1" onClick = {()=> agregarProducto(id)}>Agregar a carrito</button>
+                </ButtonGroup>
+            }
+            
+            {   productoAgregado > 0 &&
+                <>
+                <ButtonGroup variant="outlined" aria-label="outlined button group" style = {styles.buttons}>
+                    <button className = "button1" onClick = {()=> agregarProducto(0)}>Remover producto</button>
+                </ButtonGroup>
+                <ButtonGroup variant="outlined" aria-label="outlined button group" style = {styles.buttons}>
+                    <NavLink to="/cart">
+                        <button className = "button1">Finalizar Compra</button>
+                    </NavLink>
+                </ButtonGroup>
+                </>
+            }    
         </div>
 
     )
@@ -30,10 +51,10 @@ const styles = {
         display:"flex",
         flexDirection:"column",
         alignItems: "center",
-        color: "blue"
+        color: "blue",
+        margin:"5px"
     },
     buttons: {
-        padding: "10px"
+        padding: "0px"
     }
-
 }

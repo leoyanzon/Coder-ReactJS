@@ -57,7 +57,7 @@ export const ItemDetailContainer = () => {
         return new Promise((resolve, reject) => {
             setTimeout(()=>{
                 resolve(baseDeDatos)
-            }, 2000)
+            }, 200)
         })
     }
 
@@ -84,8 +84,11 @@ export const ItemDetailContainer = () => {
 
     return(
         <>
-            {   item != undefined &&
-            <ItemDetail producto = {item}></ItemDetail>
+            {   item !== undefined &&
+            <div className ="detailContainer">
+                <ItemDetail producto = {item}></ItemDetail>
+            </div>
+            
             }
         </>
     )

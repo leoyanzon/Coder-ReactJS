@@ -1,11 +1,14 @@
+import {ItemCount} from './ItemCount'
+
 export const ItemDetail = ({producto}) => {
 
     return(
-        <div>
+        <div className = "itemDetail">
             <h1>Producto número {producto.id}</h1>
             <h2>{producto.title}</h2>
-            <img src={producto.pictureUrl} alt='' />
+            <img className = "itemDetailPic" src={producto.pictureUrl} alt='' />
             <p>Precio: {producto.price}</p>
-            </div>                
+            <ItemCount initial = {1} stock = {10} id={producto.id}></ItemCount>
+        </div>                
     )
 }

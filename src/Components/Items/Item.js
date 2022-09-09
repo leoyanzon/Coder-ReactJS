@@ -17,7 +17,7 @@ export const Item = ({item}) => {
             <p>Precio: {price} USD</p>
             <img src={pictureUrl} alt="" className = "ItemImg"></img>
             <NavLink to = {`/item/${id}`}>
-                <button onClick={()=> {abrirDetalles(id)}} className = "button" >Ver detalles</button> 
+                <button onClick={()=> {abrirDetalles(id)}} className = "button1" >Ver detalles</button> 
             </NavLink>       
             </div>
     )
