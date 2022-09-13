@@ -5,12 +5,12 @@ import { NavLink } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext';
 import { useContext } from "react"
 
-export const ItemCount = ({initial, stock, producto}) => {
+export const ItemCount = ({initial, producto}) => {
 
     const [onAdd, setOnAdd] = useState(initial);  
     const [seleccionTemporal, setSeleccionTemporal] = useState([]);
-    const {addProducto} = useContext(CartContext);
 
+    const {addProducto} = useContext(CartContext);
 
     const agregarProducto = (producto) => {
         const newItem = [producto];
@@ -29,13 +29,13 @@ export const ItemCount = ({initial, stock, producto}) => {
 
     return (
         <div style={styles.itemCount}>
-            <h2>Max Stock: {stock}</h2>
+            <h2>Max Stock: {producto.stock}</h2>
             <p>{onAdd}</p>
 
             <ButtonGroup variant="outlined" aria-label="outlined button group" style = {styles.buttons}>
                 <button className = "button1" onClick = {()=> onAdd > 0 ? setOnAdd(onAdd-1): false} >-</button>
-                <button className = "button1" onClick = {()=> setOnAdd(stock)} >Max</button>
-                <button className = "button1" onClick = {()=> onAdd < stock ? setOnAdd(onAdd+1): false} >+</button>
+                <button className = "button1" onClick = {()=> setOnAdd(producto.stock)} >Max</button>
+                <button className = "button1" onClick = {()=> onAdd < producto.stock ? setOnAdd(onAdd+1): false} >+</button>
             </ButtonGroup>
 
             {   seleccionTemporal.length == 0 && 

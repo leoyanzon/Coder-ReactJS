@@ -1,8 +1,34 @@
-# Bienvenido a la pagina 3dModels
+# **3d Models**
+## e-commerce de diseños digitales
 
-En esta pagina podrás comprar o descargar todo tipo de modelos 3d para que puedas imprimirlos en tu casa!.
 
-![](https://github.com/leoyanzon/Coder-ReactJS/blob/main/src/Assets/3D-printer-coral-gif-959823.gif)
+### Initialized with [Create React App](https://github.com/facebook/create-react-app).
+### React v18.2.0
+
+
+Este proyecto fue realizado en el curso de React JS en CoderHouse, en el año 2022.
+
+### **Desktop preview**
+![gif](https://res.cloudinary.com/jurbina/image/upload/v1661017846/audiophile/dekstopDemo_ix66kb.gif)
+
+## **Getting Started:**
+
+1. Download or clone the project and from the terminal use the command `npm install`
+
+2. To run locally, use the command `npm start`
+
+## Libraries used:
+
+- ### React-Bootstrap v2.4.0
+  #### _For layout, styles and some components._
+- ### Styled Components
+  #### _For icons components._
+- ### React-hook-form v7.34.0
+  #### _For data capture and form validation._
+- ### MUI Materials v5.10.1
+  #### _For buttons._
+
+## Secciones: 
 
 ### Explorar
 

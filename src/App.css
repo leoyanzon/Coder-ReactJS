@@ -244,3 +244,11 @@ p{
   align-items: center;
   padding:5px;
  }
+
+ .table{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  width: 50%;
+ }
