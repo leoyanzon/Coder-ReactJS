@@ -9,7 +9,7 @@
 Este proyecto fue realizado en el curso de React JS en CoderHouse, en el año 2022.
 
 ### **Desktop preview**
-![gif](https://res.cloudinary.com/jurbina/image/upload/v1661017846/audiophile/dekstopDemo_ix66kb.gif)
+![gif](https://github.com/leoyanzon/Coder-ReactJS/blob/main/src/Assets/introReadme.gif)
 
 ## **Getting Started:**
 
