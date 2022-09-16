@@ -8,6 +8,9 @@ export const CartProvider = ({children}) => {
 
     const [baseDeDatos, setBaseDeDatos] = useState(baseDeDatosFile);
     const [listadoCarrito, setlistadoCarrito] = useState([]);
+    const [totalItems, setTotalItems] = useState(0);
+    const [totalAmount, setTotalAmount] = useState(0);
+
     const addProducto = (producto) => {
         const index = findIndex(listadoCarrito, producto);
         if (index === -1){
@@ -19,13 +22,19 @@ export const CartProvider = ({children}) => {
             setlistadoCarrito(newList);
         }
         reducirStock(producto, producto.quantity);
+        countAmount();
+        countItems();
     }
 
     const reducirStock = (productoToFind, quantity) => {
         const index = findIndex(baseDeDatos, productoToFind);
+        console.log("base de datos antes de resta", baseDeDatos);
         const reducirStockList = [...baseDeDatos]; // temporal de base de datos original
+        console.log("reducirStockList variable temporal antes", reducirStockList);
         reducirStockList[index].stock = reducirStockList[index].stock - quantity; // resta SOBRE la temporal
+        console.log("reducirStockList variable temporal despues de resta", reducirStockList);
         setBaseDeDatos(reducirStockList);
+        console.log("base de datos despues de resta", baseDeDatos);
     }
 
     const recuperaStock = (productoToFind, quantityRecoup) => {
@@ -44,7 +53,30 @@ export const CartProvider = ({children}) => {
             setlistadoCarrito(filtered);
         }
         recuperaStock(producto, producto.quantity);
+        countAmount();
+        countItems();
+    }
 
+    const countAmount = () => {
+        const reduceFn = (total, currentItem) => {
+            console.log("quantity",currentItem.quantity);
+            return total += currentItem.quantity * currentItem.price;
+        }
+        const amountTemp = listadoCarrito.reduce(reduceFn, 0);
+        console.log(amountTemp);
+        setTotalAmount(amountTemp);
+    }
+
+    const countItems = () => {
+        const reduceFn = (total, currentItem) => {
+            console.log("price", currentItem.price);
+            console.log("quantity", currentItem.quantity);
+            return total += currentItem.quantity;
+        }
+        const countTemp = listadoCarrito.reduce(reduceFn, 0);
+        console.log("length", listadoCarrito.length)
+        console.log(countTemp);
+        setTotalItems(countTemp);
     }
 
     const findIndex = (array, itemToFind) => {
@@ -52,7 +84,7 @@ export const CartProvider = ({children}) => {
     }
 
     return(
-        <CartContext.Provider value={{baseDeDatos:baseDeDatos, listadoCarrito: listadoCarrito, addProducto, removeItem}}>
+        <CartContext.Provider value={{baseDeDatos, listadoCarrito, totalItems, totalAmount, addProducto, removeItem}}>
             {children}
         </CartContext.Provider>
     )

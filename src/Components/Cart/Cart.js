@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useContext } from 'react'
 import { CartContext } from '../../context/CartContext'
 import { styled } from '@mui/material/styles';
+import { NavLink } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -12,7 +13,7 @@ import Paper from '@mui/material/Paper';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 export default function Cart() {
-  const { listadoCarrito } = useContext(CartContext);
+  const { listadoCarrito, removeItem, totalAmount} = useContext(CartContext);
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
@@ -33,7 +34,6 @@ export default function Cart() {
     },
   }));
   
-  const {removeItem} = useContext(CartContext);
 
   return (
     <>
@@ -79,11 +79,19 @@ export default function Cart() {
           ))}
         </TableBody>
       </Table>
+      
     </TableContainer>
+    <h2>El total es de: {totalAmount}</h2>
     </div>
     }
     { listadoCarrito.length == 0 &&
+    <>
+
       <h1>No hay items en el carrito</h1>
+      <NavLink to="/">
+        <h2>Ir al inicio</h2>
+      </NavLink>
+    </>
     }
       
     </>
