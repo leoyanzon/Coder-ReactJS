@@ -28,10 +28,13 @@ export const ItemListContainer = () => {
         try{
             const listado = await obtenerDatosApi();
             if (categoryId == undefined){
-                setItems (listado);
+                const filtrado = listado.filter(it =>
+                    it.stock > 0);
+                setItems (filtrado);
             }else {
                 const filtrado = listado.filter(it => 
-                    it.category == categoryId)
+                    it.category == categoryId
+                    && it.stock > 0)
                 
                 setItems(filtrado);
             }

@@ -59,23 +59,17 @@ export const CartProvider = ({children}) => {
 
     const countAmount = () => {
         const reduceFn = (total, currentItem) => {
-            console.log("quantity",currentItem.quantity);
             return total += currentItem.quantity * currentItem.price;
         }
         const amountTemp = listadoCarrito.reduce(reduceFn, 0);
-        console.log(amountTemp);
         setTotalAmount(amountTemp);
     }
 
     const countItems = () => {
         const reduceFn = (total, currentItem) => {
-            console.log("price", currentItem.price);
-            console.log("quantity", currentItem.quantity);
             return total += currentItem.quantity;
         }
         const countTemp = listadoCarrito.reduce(reduceFn, 0);
-        console.log("length", listadoCarrito.length)
-        console.log(countTemp);
         setTotalItems(countTemp);
     }
 
@@ -84,7 +78,7 @@ export const CartProvider = ({children}) => {
     }
 
     return(
-        <CartContext.Provider value={{baseDeDatos, listadoCarrito, totalItems, totalAmount, addProducto, removeItem}}>
+        <CartContext.Provider value={{baseDeDatos, listadoCarrito, totalItems, totalAmount, addProducto, removeItem, countAmount, countItems}}>
             {children}
         </CartContext.Provider>
     )

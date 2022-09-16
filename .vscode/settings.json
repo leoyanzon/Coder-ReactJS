@@ -16,7 +16,12 @@
         "titleBar.activeBackground": "#50a611",
         "titleBar.activeForeground": "#e7e7e7",
         "titleBar.inactiveBackground": "#50a61199",
-        "titleBar.inactiveForeground": "#e7e7e799"
+        "titleBar.inactiveForeground": "#e7e7e799",
+        "panel.border": "#66d416",
+        "sideBar.border": "#66d416",
+        "statusBar.border": "#50a611",
+        "tab.activeBorder": "#66d416",
+        "titleBar.border": "#50a611"
     },
     "peacock.color": "#50a611"
 }

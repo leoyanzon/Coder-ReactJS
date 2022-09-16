@@ -13,7 +13,9 @@ import Paper from '@mui/material/Paper';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 export default function Cart() {
-  const { listadoCarrito, removeItem, totalAmount} = useContext(CartContext);
+  const { listadoCarrito, removeItem, totalAmount, countAmount} = useContext(CartContext);
+
+
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
@@ -34,16 +36,12 @@ export default function Cart() {
     },
   }));
   
+  useEffect(()=>{
+    countAmount();
+  },[listadoCarrito]);
 
   return (
     <>
-
-      {/* {
-        listadoCarrito.map((item, index )=> {
-          return(
-          <p key={index}>{item.title}</p>
-        )})
-      } */}
       { listadoCarrito.length > 0 &&
 
     <div className ="table">

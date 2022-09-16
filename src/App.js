@@ -13,6 +13,7 @@ const App = () => {
       <CartProvider>
           <BrowserRouter>
           <NavBar></NavBar>
+          <div className ="main_content">
           <Routes>
             <Route path="/" element={<ItemListContainer/>}/>
             <Route path="/category/:categoryId" element={<ItemListContainer/>}/>
@@ -20,6 +21,8 @@ const App = () => {
             <Route path="/item/:itemId" element={<ItemDetailContainer/>}/>
             <Route path="/cart" element={<Cart/>}/>
           </Routes>    
+          </div>
+       
         </BrowserRouter>
       </CartProvider>
       

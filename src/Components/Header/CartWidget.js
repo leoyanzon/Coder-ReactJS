@@ -5,7 +5,13 @@ import { NavLink } from "react-router-dom";
 
 const Carrito = () =>{
 
-    const {totalItems} = useContext(CartContext);
+    const {listadoCarrito, totalItems, countItems} = useContext(CartContext);
+
+    useEffect(
+        ()=>{
+            countItems();
+        }
+        ,[listadoCarrito]);
 
     return(
 
