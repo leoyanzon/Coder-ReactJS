@@ -2,6 +2,8 @@ import {ItemList} from './ItemList'
 import { useState, useEffect, useContext} from 'react'
 import { useParams } from 'react-router-dom'
 import { CartContext } from '../../context/CartContext';
+import db from "../../utils/firebase"
+import { collection, getDocs } from 'firebase/firestore';
 
 
 
@@ -10,16 +12,25 @@ import { CartContext } from '../../context/CartContext';
 export const ItemListContainer = () => {
     const [items, setItems] = useState([]);
     const {categoryId} = useParams();
-    const {baseDeDatos} = useContext(CartContext);
+    
+    //const {baseDeDatos} = useContext(CartContext);
   
     //Promesa ficticia simulando retardo de api
-    const obtenerDatosApi = () => {
-    return new Promise((resolve, reject) => {
-        setTimeout(()=>{
-            resolve(baseDeDatos)
-        }, 100)
-    })
+    // const obtenerDatosApi = () => {
+    // return new Promise((resolve, reject) => {
+    //     setTimeout(()=>{
+    //         resolve(baseDeDatos)
+    //     }, 100)
+    // })
+    // }
+    const obtenerDatosApi = async()=>{
+        const query = collection(db,"items");
+        const response = await getDocs(query);
+        const docs = response.docs;
+        const newDb = docs.map(doc=>{return {...doc.data(), id:parseInt(doc.id)}});
+        return newDb;
     }
+
 
     //Use efect se ejecuta UNA VEZ que fue renderizado el componente. Cuando termina de renderizarse
     
@@ -46,6 +57,10 @@ export const ItemListContainer = () => {
     }
     funcionAsincronaObtener();
     },[categoryId]);
+
+    useEffect(()=>{
+
+    },[]);
 
     return (
         <>
