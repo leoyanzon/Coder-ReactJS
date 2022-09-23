@@ -1,6 +1,9 @@
 import { createContext } from "react";
 import { baseDeDatosFile} from "./baseDatos"
 import { useState } from "react"
+import { doc, getDoc, query, updateDoc } from 'firebase/firestore';
+import db from "../utils/firebase";
+import { async, map } from "@firebase/util";
 
 export const CartContext = createContext();
 
@@ -10,6 +13,8 @@ export const CartProvider = ({children}) => {
     const [listadoCarrito, setlistadoCarrito] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0);
+
+
 
     const addProducto = (producto) => {
         const index = findIndex(listadoCarrito, producto);
@@ -21,27 +26,23 @@ export const CartProvider = ({children}) => {
             newList[index].quantity = newList[index].quantity + producto.quantity;
             setlistadoCarrito(newList);
         }
-        reducirStock(producto, producto.quantity);
         countAmount();
         countItems();
     }
 
-    const reducirStock = (productoToFind, quantity) => {
-        const index = findIndex(baseDeDatos, productoToFind);
-        console.log("base de datos antes de resta", baseDeDatos);
-        const reducirStockList = [...baseDeDatos]; // temporal de base de datos original
-        console.log("reducirStockList variable temporal antes", reducirStockList);
-        reducirStockList[index].stock = reducirStockList[index].stock - quantity; // resta SOBRE la temporal
-        console.log("reducirStockList variable temporal despues de resta", reducirStockList);
-        setBaseDeDatos(reducirStockList);
-        console.log("base de datos despues de resta", baseDeDatos);
+    const reducirStockBatch = () => {
+        listadoCarrito.map(it => {
+            reducirStockFirebase(it, it.quantity);
+        })
     }
 
-    const recuperaStock = (productoToFind, quantityRecoup) => {
-        const index = findIndex(baseDeDatos, productoToFind);
-        const recuperaStockList = [...baseDeDatos]; // temporal de base de datos original
-        recuperaStockList[index].stock = recuperaStockList[index].stock + quantityRecoup; // resta SOBRE la temporal
-        setBaseDeDatos(recuperaStockList);
+    const reducirStockFirebase = async(productoToFind, quantity) => {
+        const index = productoToFind.id;
+        const queryRef = doc(db, "items", String(index));
+        const queryDoc = await getDoc(queryRef);
+        const newStock = queryDoc.data();
+        newStock.stock -= quantity;
+        updateDoc(queryRef, newStock).then(()=> console.log("producto Actualizado"));
     }
 
     const removeItem = (producto) => {
@@ -52,9 +53,20 @@ export const CartProvider = ({children}) => {
             });
             setlistadoCarrito(filtered);
         }
-        recuperaStock(producto, producto.quantity);
         countAmount();
         countItems();
+    }
+
+    const cleanCarrito = () => {
+        setlistadoCarrito([]);
+        countAmount();
+        countItems();
+    }
+
+    const recuperaStockCarrito = (_id) => {
+        let stock = listadoCarrito.find(element => element.id === _id) || 0;
+        stock = stock !== 0 ? stock.quantity : 0;
+        return stock
     }
 
     const countAmount = () => {
@@ -78,7 +90,7 @@ export const CartProvider = ({children}) => {
     }
 
     return(
-        <CartContext.Provider value={{baseDeDatos, listadoCarrito, totalItems, totalAmount, addProducto, removeItem, countAmount, countItems}}>
+        <CartContext.Provider value={{baseDeDatos, listadoCarrito, totalItems, totalAmount, addProducto, removeItem, countAmount, countItems, cleanCarrito, recuperaStockCarrito, reducirStockBatch}}>
             {children}
         </CartContext.Provider>
     )

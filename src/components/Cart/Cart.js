@@ -11,6 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import CartForm from './CartForm';
 
 export default function Cart() {
   const { listadoCarrito, removeItem, totalAmount, countAmount} = useContext(CartContext);
@@ -79,10 +80,11 @@ export default function Cart() {
       </Table>
       
     </TableContainer>
-    <h2>El total es de: {totalAmount}</h2>
+    <h3>El total es de: {totalAmount}</h3>
+    <CartForm></CartForm>
     </div>
     }
-    { listadoCarrito.length == 0 &&
+    { listadoCarrito.length === 0 &&
     <>
 
       <h1>No hay items en el carrito</h1>

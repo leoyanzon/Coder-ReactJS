@@ -12,17 +12,8 @@ import { collection, getDocs } from 'firebase/firestore';
 export const ItemListContainer = () => {
     const [items, setItems] = useState([]);
     const {categoryId} = useParams();
-    
-    //const {baseDeDatos} = useContext(CartContext);
-  
-    //Promesa ficticia simulando retardo de api
-    // const obtenerDatosApi = () => {
-    // return new Promise((resolve, reject) => {
-    //     setTimeout(()=>{
-    //         resolve(baseDeDatos)
-    //     }, 100)
-    // })
-    // }
+    const {recuperaStockCarrito} = useContext(CartContext);
+
     const obtenerDatosApi = async()=>{
         const query = collection(db,"items");
         const response = await getDocs(query);
@@ -39,13 +30,14 @@ export const ItemListContainer = () => {
         try{
             const listado = await obtenerDatosApi();
             if (categoryId == undefined){
-                const filtrado = listado.filter(it =>
-                    it.stock > 0);
+                
+                const filtrado = listado.filter(it => 
+                    it.stock > recuperaStockCarrito(it.id));
                 setItems (filtrado);
             }else {
                 const filtrado = listado.filter(it => 
                     it.category == categoryId
-                    && it.stock > 0)
+                    && it.stock > recuperaStockCarrito(it.id))
                 
                 setItems(filtrado);
             }
@@ -66,7 +58,6 @@ export const ItemListContainer = () => {
         <>
         <div className = "itemListContainer">
             <h1>Explorar Modelos</h1>
-            {/* <ItemCount initial = {1} stock={6}></ItemCount> */}
             <ItemList items = {items}></ItemList>
             
             {

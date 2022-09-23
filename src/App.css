@@ -259,10 +259,23 @@ p{
   align-items: center;
   justify-content: center;
   padding: 10px;
-  width: 50%;
+
  }
  
  .cart{
   color: white;
   text-decoration: none;
+ }
+
+.cartForm{
+  margin-top: 50px;
+
+  padding: 5px;
+  text-align: center;
+
+}
+
+ .inputForm{
+  margin: 5px !important;
+  background-color: white;
  }

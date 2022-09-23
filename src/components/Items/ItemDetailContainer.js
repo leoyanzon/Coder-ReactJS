@@ -11,14 +11,6 @@ export const ItemDetailContainer = () => {
     const {baseDeDatos} = useContext(CartContext);
     // DATA
 
-  //Promesa ficticia simulando retardo de api
-    // const obtenerDatosApi = () => {
-    //     return new Promise((resolve, reject) => {
-    //         setTimeout(()=>{
-    //             resolve(baseDeDatos)
-    //         }, 200)
-    //     })
-    // }
     const obtenerItem = async()=>{
         const query = doc(db,"items", String(itemId));
         const response = await getDoc(query);
@@ -33,13 +25,8 @@ export const ItemDetailContainer = () => {
         const funcionAsincronaObtener = async() => {
             try{
                 const listado = await obtenerItem();
-                //const filtrado = listado.find(it => it.id == itemId);
-                //if (filtrado != undefined){
-                //     setItem (filtrado);
 
-                //} else{
                     setItem (listado);                   
-                //}
             }
             catch{
                 console.log("Ocurrió un error");
