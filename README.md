@@ -9,7 +9,7 @@
 Este proyecto fue realizado en el curso de React JS en CoderHouse, en el año 2022.
 
 ### **Desktop preview**
-![gif](https://github.com/leoyanzon/Coder-ReactJS/blob/main/src/Assets/introReadme.gif)
+![gif](https://github.com/leoyanzon/Coder-ReactJS/blob/main/src/assets/introReadme.gif)
 
 ## **Getting Started:**
 
