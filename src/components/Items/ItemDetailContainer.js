@@ -1,14 +1,13 @@
 import { ItemDetail } from './ItemDetail';
 import { useEffect, useState , useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { CartContext } from "../../context/CartContext";
 import db from "../../utils/firebase"
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 
 export const ItemDetailContainer = () => {
     const [item, setItem] = useState([])
     const {itemId} = useParams();
-    const {baseDeDatos} = useContext(CartContext);
+  
     // DATA
 
     const obtenerItem = async()=>{

@@ -46,7 +46,7 @@ export default function Cart() {
       { listadoCarrito.length > 0 &&
 
     <div className ="table">
-                  <h1>Felicitaciones, has comprado un producto!</h1>
+                  <h1>Estás a un paso de finalizar tu compra!</h1>
             <h2>Tu carrito:</h2>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -80,21 +80,21 @@ export default function Cart() {
       </Table>
       
     </TableContainer>
-    <h3>El total es de: {totalAmount}</h3>
+    <h3>El monto total del carrito es de: ${totalAmount}</h3>
     <CartForm></CartForm>
     </div>
     }
     { listadoCarrito.length === 0 &&
     <>
 
-      <h1>No hay items en el carrito</h1>
+      <h1>No hay ningun item en el carrito</h1>
+      <img src="https://imgs.search.brave.com/3rpIHozptXxhuHNUBssJnCje8bQ9C3rMJLtleUE7__8/rs:fit:840:1022:1/g:ce/aHR0cHM6Ly93d3cu/cG5nZmluZC5jb20v/cG5ncy9tLzEyOS0x/Mjk5NzA3X3Nob3Bw/aW5nLWNhcnQtcG5n/LWNsaXAtYXJ0LWlt/YWdlLXNob3BwaW5n/LWNhcnQucG5n" alt="Empty cart" width="210" height="255">
+      </img>
       <NavLink to="/">
-        <h2>Ir al inicio</h2>
+        <button className = "button1">Ir al inicio</button>
       </NavLink>
     </>
     }
-      
     </>
-
   )
 }

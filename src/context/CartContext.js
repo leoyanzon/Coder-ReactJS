@@ -1,16 +1,13 @@
 import { createContext } from "react";
-import { baseDeDatosFile} from "./baseDatos"
 import { useState } from "react"
-import { doc, getDoc, query, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import db from "../utils/firebase";
-import { async, map } from "@firebase/util";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({children}) => {
 
-    const [baseDeDatos, setBaseDeDatos] = useState(baseDeDatosFile);
-    const [listadoCarrito, setlistadoCarrito] = useState([]);
+    const [listadoCarrito, setListadoCarrito] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0);
 
@@ -20,11 +17,11 @@ export const CartProvider = ({children}) => {
         const index = findIndex(listadoCarrito, producto);
         if (index === -1){
             const newList = [...listadoCarrito, producto];
-            setlistadoCarrito(newList);
+            setListadoCarrito(newList);
         } else {
             const newList = [...listadoCarrito];
             newList[index].quantity = newList[index].quantity + producto.quantity;
-            setlistadoCarrito(newList);
+            setListadoCarrito(newList);
         }
         countAmount();
         countItems();
@@ -47,18 +44,18 @@ export const CartProvider = ({children}) => {
 
     const removeItem = (producto) => {
         const index = findIndex(listadoCarrito, producto);
-        if (index != -1){
+        if (index !== -1){
             const filtered = listadoCarrito.filter(function(value, item, arr){ 
-                return item != index;
+                return item !== index;
             });
-            setlistadoCarrito(filtered);
+            setListadoCarrito(filtered);
         }
         countAmount();
         countItems();
     }
 
     const cleanCarrito = () => {
-        setlistadoCarrito([]);
+        setListadoCarrito([]);
         countAmount();
         countItems();
     }
@@ -90,7 +87,7 @@ export const CartProvider = ({children}) => {
     }
 
     return(
-        <CartContext.Provider value={{baseDeDatos, listadoCarrito, totalItems, totalAmount, addProducto, removeItem, countAmount, countItems, cleanCarrito, recuperaStockCarrito, reducirStockBatch}}>
+        <CartContext.Provider value={{listadoCarrito, totalItems, totalAmount, addProducto, removeItem, countAmount, countItems, cleanCarrito, recuperaStockCarrito, reducirStockBatch}}>
             {children}
         </CartContext.Provider>
     )

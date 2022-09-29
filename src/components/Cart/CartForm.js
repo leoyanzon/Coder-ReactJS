@@ -1,20 +1,36 @@
-import React, {useState, useContext} from 'react'
-import Box from "@mui/material/Box"
+import React, {useState, useContext, useEffect} from 'react'
 import TextField from '@mui/material/TextField';
 import {CartContext} from "../../context/CartContext";
 import { collection, addDoc } from 'firebase/firestore';
 import db from "../../utils/firebase";
+import swal from "sweetalert";
 
 function CartForm(props) {
     const { listadoCarrito, cleanCarrito, totalAmount, reducirStockBatch } = useContext(CartContext);
 
     const [orderId, setOrderId] = useState("");
+    const [isValid, setIsValid] = useState({name: 0, lastName: 0, email:0});
 
     const orderCollection = collection(db, "orders");
 
-    const sendForm = (e) => {
-        e.preventDefault();
-        const user = {
+    const handleChange = (e) => {
+      const targetValue = e.target.value;
+      const targetId = e.target.id;
+      let validity = 0;
+      if (targetId === "email"){
+          validity = targetValue.search("@")>0 && targetValue !== "";
+      } else {
+          validity = targetValue !== "";
+      }
+      const newObject = {...isValid, [targetId]:validity};
+      setIsValid(newObject);
+    }
+
+    const sendForm = async(e) => {
+      e.preventDefault();
+      const validity = isValid.name && isValid.lastName && isValid.email;
+      if (validity){
+          const user = {
             name: e.target[0].value,
             lastname: e.target[2].value,
             email: e.target[4].value
@@ -25,16 +41,25 @@ function CartForm(props) {
             total: totalAmount
 
         }
-        console.log(_order);
-
-        addDoc(orderCollection, _order).then(
+        await addDoc(orderCollection, _order).then(
             (id) => {
                 setOrderId(id.id);
-                console.log("Registro exitoso con id:", id.id);
-                cleanCarrito();
+                swal({
+                  title: "Felicitaciones!",
+                  text: `Tu compra fue exitosa, con el id ${id.id}`,
+                  icon: "success",
+                });
             }
         )
         reducirStockBatch();
+        cleanCarrito();
+      } else {
+        swal({
+          title: "Alerta",
+          text: `Faltan completar datos!`,
+          icon: "error",
+        });
+      }
     };
 
   return (
@@ -45,27 +70,30 @@ function CartForm(props) {
         <div>
         <TextField
           className="inputForm"
-          required
+          error = {!isValid.name}
           id="name"
           label="Name"
           defaultValue=""
+          onChange={handleChange}
         />
         <TextField
           className="inputForm"
-          required
-          id="last-name"
+          error = {!isValid.lastName}
+          id="lastName"
           label="Last Name"
           defaultValue=""
+          onChange={handleChange}
         />
         <TextField
           className="inputForm"
-          required
+          error = {!isValid.email} 
           id="email"
           label="Email"
           defaultValue=""
+          onChange={handleChange}
         />
         </div>
-        <button type="submit" className = "button1">Comprar</button>
+        <button type="submit" className = "button1">Realizar compra</button>
     </form>
     </div>
     

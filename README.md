@@ -13,9 +13,11 @@ Este proyecto fue realizado en el curso de React JS en CoderHouse, en el año 20
 
 ## **Getting Started:**
 
-1. Download or clone the project and from the terminal use the command `npm install`
+1. Download or clone the project from the terminal using the command `git clone https://github.com/leoyanzon/Coder-ReactJS.git`
 
-2. To run locally, use the command `npm start`
+2. Inside the folder, use the command `npm install` to install all dependencies and libraries (see package.json)
+
+3. To run locally, use the command `npm start` and enjoy 3dModels!
 
 ## Libraries used:
 
@@ -46,3 +48,7 @@ Imprimí los mejores juguetes para los chicos!
 
 Una vez que selecciones tu modelo preferido, llegarás a la seccion de detalles. 
 En esta seccion podrás elegir la cantidad a comprar y podras visualizar el precio de cada item.
+
+### Carrito
+
+Esta sección podrás verla cuando tengas elementos en tu carrito.
